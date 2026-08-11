@@ -814,6 +814,46 @@ section {
     color: var(--text-body);
 }
 
+.timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.timeline-list li {
+    font-size: 1.5rem;
+    color: var(--text-body);
+    padding-left: 1.8rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.timeline-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1.3rem;
+    top: 0.15rem;
+}
+
+.timeline-list li strong {
+    color: var(--text-heading);
+    font-weight: 600;
+}
+
+.timeline-list li code {
+    background: rgba(255, 59, 92, 0.1);
+    color: var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 1.3rem;
+    font-family: 'Courier New', monospace;
+}
+
 /* --------------------------------------------------------------------------
    9. Contact Section
    -------------------------------------------------------------------------- */
@@ -949,7 +989,168 @@ section {
 }
 
 /* --------------------------------------------------------------------------
-   10. Footer
+   10. Visitors Section
+   -------------------------------------------------------------------------- */
+.visitors {
+    min-height: auto;
+    padding: 12rem 9% 8rem;
+}
+
+.visitors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 3rem;
+    margin-bottom: 6rem;
+}
+
+.visitor-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 4rem 3rem;
+    text-align: center;
+    overflow: hidden;
+    transition: var(--transition-fast);
+    cursor: default;
+}
+
+.visitor-card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+    background: var(--bg-card-hover);
+}
+
+.visitor-card-glow {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255, 59, 92, 0.2);
+    filter: blur(30px);
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.visitor-card:hover .visitor-card-glow {
+    opacity: 0.9;
+    transform: scale(1.4);
+}
+
+.visitor-icon-box {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 59, 92, 0.1);
+    border: 1px solid rgba(255, 59, 92, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--accent);
+    margin: 0 auto 2.5rem;
+    transition: var(--transition-fast);
+}
+
+.visitor-card:hover .visitor-icon-box {
+    transform: scale(1.1) rotate(-5deg);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.visitor-count {
+    font-size: 5.6rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 1rem;
+    font-family: var(--font-primary);
+    letter-spacing: -2px;
+}
+
+.visitor-label {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 0.6rem;
+}
+
+.visitor-sub {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+}
+
+/* Milestone Progress Bars */
+.visitor-progress-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 4rem;
+}
+
+.visitor-progress-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.visitor-milestones {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.milestone-item {}
+
+.milestone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.milestone-label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.milestone-label i {
+    color: var(--accent);
+}
+
+.milestone-pct {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.milestone-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.milestone-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    width: 0%;
+    transition: width 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   11. Footer
    -------------------------------------------------------------------------- */
 footer {
     padding: 4rem 9%;
@@ -995,36 +1196,65 @@ footer {
 }
 
 /* --------------------------------------------------------------------------
-   11. Custom Cursor Animation
+   11. Custom Cursor Animation — Enhanced with Particle Trail
    -------------------------------------------------------------------------- */
+
+/* Hide the native cursor site-wide on pointer devices */
+@media (hover: hover) {
+    html, body, a, button, input, textarea, select, label {
+        cursor: none !important;
+    }
+}
+
+/* ── Core dot ── */
 .cursor-dot {
     position: fixed;
     top: 0;
     left: 0;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background: var(--accent);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
     transform: translate(-50%, -50%);
-    transition: transform 0.05s ease, opacity 0.3s ease;
-    box-shadow: 0 0 8px var(--accent-glow);
+    box-shadow: 0 0 12px var(--accent), 0 0 24px var(--accent-glow);
     opacity: 0;
+    transition: opacity 0.3s ease, transform 0.08s ease;
 }
 
+/* Pulsing corona around dot */
+.cursor-dot::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    filter: blur(8px);
+    animation: cursor-corona 1.5s ease-in-out infinite;
+}
+
+@keyframes cursor-corona {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%       { opacity: 0.1; transform: scale(1.6); }
+}
+
+/* ── Outer ring ── */
 .cursor-ring {
     position: fixed;
     top: 0;
     left: 0;
-    width: 34px;
-    height: 34px;
-    border: 2px solid rgba(255, 59, 92, 0.55);
+    width: 38px;
+    height: 38px;
+    border: 2px solid rgba(255, 59, 92, 0.5);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99998;
     transform: translate(-50%, -50%);
-    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.16,1,0.3,1),
+                height 0.3s cubic-bezier(0.16,1,0.3,1),
+                border-color 0.3s ease,
+                opacity 0.3s ease;
     opacity: 0;
 }
 
@@ -1033,25 +1263,52 @@ footer {
     opacity: 1;
 }
 
+/* Click burst on dot */
+.cursor-dot.clicked {
+    transform: translate(-50%, -50%) scale(0.6);
+    box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent-glow);
+}
+
 /* Scale ring on hoverable elements */
 body:has(a:hover) .cursor-ring,
 body:has(button:hover) .cursor-ring,
 body:has(.btn:hover) .cursor-ring,
 body:has(.service-card:hover) .cursor-ring,
 body:has(.project-card:hover) .cursor-ring,
-body:has(.pill:hover) .cursor-ring {
-    width: 52px;
-    height: 52px;
-    border-color: rgba(255, 59, 92, 0.85);
+body:has(.pill:hover) .cursor-ring,
+body:has(.visitor-card:hover) .cursor-ring,
+body:has(.timeline-content:hover) .cursor-ring {
+    width: 56px;
+    height: 56px;
+    border-color: rgba(255, 59, 92, 0.9);
+    border-width: 2px;
 }
 
-/* Hide custom cursor on touch/mobile devices */
+/* ── Particle trail sparks ── */
+.cursor-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99990;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: particle-fade var(--p-dur, 0.7s) ease-out forwards;
+}
+
+@keyframes particle-fade {
+    0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--p-dx,0px)), calc(-50% + var(--p-dy,-30px))) scale(0); }
+}
+
+/* Hide on touch/mobile */
 @media (hover: none) {
-    .cursor-dot,
-    .cursor-ring {
+    .cursor-dot, .cursor-ring, .cursor-particle {
         display: none;
     }
+    html, body, a, button, input, textarea, select, label {
+        cursor: auto !important;
+    }
 }
+
 
 /* --------------------------------------------------------------------------
    12. Scroll Reveal Animations

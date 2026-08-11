@@ -72,10 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typingText) {
         const roles = [
             'Python Developer',
-            'Backend Specialist',
-            'Software Engineer',
-            'Automation Expert',
-            'API Architect'
+            'GUI Application Developer',
+            'Backend & API Specialist',
+            'Database & Automation Engineer'
         ];
 
         let roleIndex = 0;
@@ -179,16 +178,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursorRing = document.getElementById('cursorRing');
 
 
-    if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
-        let mouseX = 0, mouseY = 0;   // current mouse position
-        let ringX  = 0, ringY  = 0;   // ring's smoothed position
+    if (cursorDot && cursorRing) {
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX  = mouseX;
+        let ringY  = mouseY;
         let rafId  = null;
 
         // Snap dot; lag ring via lerp
         function animateCursor() {
-            // Lerp: ring follows mouse with slight delay
-            ringX += (mouseX - ringX) * 0.12;
-            ringY += (mouseY - ringY) * 0.12;
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
 
             cursorDot.style.left  = mouseX + 'px';
             cursorDot.style.top   = mouseY + 'px';
@@ -198,21 +198,22 @@ document.addEventListener('DOMContentLoaded', () => {
             rafId = requestAnimationFrame(animateCursor);
         }
 
+        // Show immediately by default
+        cursorDot.classList.add('visible');
+        cursorRing.classList.add('visible');
+        animateCursor();
+
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
 
-            // Reveal on first move
             if (!cursorDot.classList.contains('visible')) {
                 cursorDot.classList.add('visible');
                 cursorRing.classList.add('visible');
-                ringX = mouseX;
-                ringY = mouseY;
-                if (!rafId) animateCursor();
             }
         });
 
-        // Hide when cursor leaves window
+        // Hide when cursor leaves browser window, show on enter
         document.addEventListener('mouseleave', () => {
             cursorDot.classList.remove('visible');
             cursorRing.classList.remove('visible');
@@ -222,5 +223,92 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorRing.classList.add('visible');
         });
     }
+
+    /* --------------------------------------------------------------------------
+       7. Visitor Counter Tracking & Animated Display
+       -------------------------------------------------------------------------- */
+    (function initVisitorCounter() {
+        const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+
+        // ── Retrieve stored data ──────────────────────────────────────────────
+        let totalVisits  = parseInt(localStorage.getItem('pf_total_visits')  || '0', 10);
+        let uniqueVisits = parseInt(localStorage.getItem('pf_unique_visits') || '0', 10);
+        let todayDate    = localStorage.getItem('pf_today_date') || '';
+        let todayVisits  = parseInt(localStorage.getItem('pf_today_visits')  || '0', 10);
+        let isNewSession = !sessionStorage.getItem('pf_session_active');
+
+        // ── Reset today counter on new day ───────────────────────────────────
+        if (todayDate !== today) {
+            todayDate   = today;
+            todayVisits = 0;
+            localStorage.setItem('pf_today_date', today);
+        }
+
+        // ── Increment counters on new session ────────────────────────────────
+        if (isNewSession) {
+            sessionStorage.setItem('pf_session_active', '1');
+            totalVisits++;
+            uniqueVisits++;
+            todayVisits++;
+            localStorage.setItem('pf_total_visits',  totalVisits);
+            localStorage.setItem('pf_unique_visits', uniqueVisits);
+            localStorage.setItem('pf_today_visits',  todayVisits);
+        }
+
+        // ── Animated count-up helper ──────────────────────────────────────────
+        function animateCount(el, target, duration) {
+            if (!el) return;
+            let start     = 0;
+            const step    = target / (duration / 16);
+            const timer   = setInterval(() => {
+                start += step;
+                if (start >= target) {
+                    start = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(start).toLocaleString();
+            }, 16);
+        }
+
+        // ── Milestone fill helper ─────────────────────────────────────────────
+        function setMilestone(fillId, pctId, current, goal) {
+            const fill = document.getElementById(fillId);
+            const pct  = document.getElementById(pctId);
+            if (!fill || !pct) return;
+            const ratio = Math.min(current / goal, 1);
+            fill.style.width = (ratio * 100).toFixed(1) + '%';
+            pct.textContent  = Math.round(ratio * 100) + '%';
+        }
+
+        // ── Observe the visitors section; animate only when visible ───────────
+        const visitorSection = document.getElementById('visitors');
+        if (!visitorSection) return;
+
+        let countersAnimated = false;
+
+        const visitorObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersAnimated) {
+                    countersAnimated = true;
+
+                    animateCount(document.getElementById('totalVisits'),  totalVisits,  1500);
+                    animateCount(document.getElementById('todayVisits'),  todayVisits,  1200);
+                    animateCount(document.getElementById('uniqueVisits'), uniqueVisits, 1400);
+                    // "Online Now" stays at 1 (you) or mock random 1-3
+                    const liveCount = Math.floor(Math.random() * 2) + 1;
+                    animateCount(document.getElementById('onlineNow'), liveCount, 800);
+
+                    // Animate milestone bars with slight delay
+                    setTimeout(() => {
+                        setMilestone('m1Fill', 'm1Pct', totalVisits, 100);
+                        setMilestone('m2Fill', 'm2Pct', totalVisits, 500);
+                        setMilestone('m3Fill', 'm3Pct', totalVisits, 1000);
+                    }, 400);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        visitorObserver.observe(visitorSection);
+    })();
 
 });
