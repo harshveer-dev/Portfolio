@@ -172,4 +172,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* --------------------------------------------------------------------------
+       6. Custom Cursor Trail Animation
+       -------------------------------------------------------------------------- */
+    const cursorDot  = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+
+
+    if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
+        let mouseX = 0, mouseY = 0;   // current mouse position
+        let ringX  = 0, ringY  = 0;   // ring's smoothed position
+        let rafId  = null;
+
+        // Snap dot; lag ring via lerp
+        function animateCursor() {
+            // Lerp: ring follows mouse with slight delay
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+
+            cursorDot.style.left  = mouseX + 'px';
+            cursorDot.style.top   = mouseY + 'px';
+            cursorRing.style.left = ringX  + 'px';
+            cursorRing.style.top  = ringY  + 'px';
+
+            rafId = requestAnimationFrame(animateCursor);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Reveal on first move
+            if (!cursorDot.classList.contains('visible')) {
+                cursorDot.classList.add('visible');
+                cursorRing.classList.add('visible');
+                ringX = mouseX;
+                ringY = mouseY;
+                if (!rafId) animateCursor();
+            }
+        });
+
+        // Hide when cursor leaves window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.classList.remove('visible');
+            cursorRing.classList.remove('visible');
+        });
+        document.addEventListener('mouseenter', () => {
+            cursorDot.classList.add('visible');
+            cursorRing.classList.add('visible');
+        });
+    }
+
 });

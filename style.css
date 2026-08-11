@@ -995,7 +995,66 @@ footer {
 }
 
 /* --------------------------------------------------------------------------
-   11. Scroll Reveal Animations
+   11. Custom Cursor Animation
+   -------------------------------------------------------------------------- */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s ease, opacity 0.3s ease;
+    box-shadow: 0 0 8px var(--accent-glow);
+    opacity: 0;
+}
+
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    border: 2px solid rgba(255, 59, 92, 0.55);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.cursor-dot.visible,
+.cursor-ring.visible {
+    opacity: 1;
+}
+
+/* Scale ring on hoverable elements */
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring,
+body:has(.btn:hover) .cursor-ring,
+body:has(.service-card:hover) .cursor-ring,
+body:has(.project-card:hover) .cursor-ring,
+body:has(.pill:hover) .cursor-ring {
+    width: 52px;
+    height: 52px;
+    border-color: rgba(255, 59, 92, 0.85);
+}
+
+/* Hide custom cursor on touch/mobile devices */
+@media (hover: none) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   12. Scroll Reveal Animations
    -------------------------------------------------------------------------- */
 .reveal {
     opacity: 0;
