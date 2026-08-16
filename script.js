@@ -141,33 +141,46 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
     /* --------------------------------------------------------------------------
-       5. Contact Form Interactive Handler
+       5. Contact Form — Secure Delivery via FormSubmit (No-CORS method)
+       --------------------------------------------------------------------------
+       Uses standard form submission targeted at a hidden iframe to bypass any
+       local file:// protocol CORS issues. No API keys or passwords required.
+       Note: On the VERY FIRST submission, you will receive an activation email
+       at harshveersingh.tech@gmail.com.
        -------------------------------------------------------------------------- */
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
+    const hiddenIframe = document.getElementById('hidden_iframe');
+    let isSubmitting = false;
 
-    if (contactForm && formStatus) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>`;
-
-            setTimeout(() => {
+    if (contactForm && formStatus && hiddenIframe) {
+        // When the hidden iframe finishes loading the response from FormSubmit
+        hiddenIframe.addEventListener('load', () => {
+            if (isSubmitting) {
+                isSubmitting = false;
+                
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                
                 formStatus.className = 'form-status success';
                 formStatus.textContent = 'Thank you! Your message has been sent successfully.';
                 contactForm.reset();
-
+                
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
+                submitBtn.innerHTML = `<span>Send Message</span> <i class="fas fa-paper-plane"></i>`;
+                
+                setTimeout(() => { formStatus.textContent = ''; }, 5000);
+            }
+        });
 
-                setTimeout(() => {
-                    formStatus.textContent = '';
-                }, 5000);
-            }, 1200);
+        contactForm.addEventListener('submit', () => {
+            isSubmitting = true;
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>`;
+            
+            // The form will now natively submit to the hidden iframe
         });
     }
 
