@@ -60,8 +60,8 @@
             </p>
 
             <div class="social-icons">
-                <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/harshveer-dev" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/harsh-veer-73a053422/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
                 <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -578,28 +578,32 @@
                 </div>
 
                 <div class="contact-socials">
-                    <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/harshveer-dev" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/harsh-veer-73a053422/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
                     <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
                 </div>
             </div>
 
-            <form class="contact-form reveal" id="contactForm">
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+            <form action="https://formsubmit.co/harshveersingh.tech@gmail.com" method="POST" target="hidden_iframe" class="contact-form reveal" id="contactForm">
+                <!-- Disable Captcha to prevent redirecting inside the iframe -->
+                <input type="hidden" name="_captcha" value="false">
+                
                 <h3>Send a Message</h3>
                 <div class="input-group">
                     <div class="input-box">
-                        <input type="text" id="name" required placeholder="Your Name">
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
                     </div>
                     <div class="input-box">
-                        <input type="email" id="email" required placeholder="Your Email">
+                        <input type="email" id="email" name="email" required placeholder="Your Email">
                     </div>
                 </div>
                 <div class="input-box">
-                    <input type="text" id="subject" required placeholder="Subject">
+                    <input type="text" id="subject" name="_subject" required placeholder="Subject">
                 </div>
                 <div class="input-box">
-                    <textarea id="message" rows="5" required placeholder="Your Message..."></textarea>
+                    <textarea id="message" name="message" rows="5" required placeholder="Your Message..."></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">
                     <span>Send Message</span>
