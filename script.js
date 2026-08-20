@@ -40,14 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         // Sticky Header
-        if (window.scrollY > 50) {
+        if (window.scrollY > 40) {
             header.classList.add('sticky');
         } else {
             header.classList.remove('sticky');
         }
 
         // Active Section Link Highlight
-        let currentScroll = window.scrollY + 150;
+        let currentScroll = window.scrollY + 160;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
@@ -111,42 +111,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --------------------------------------------------------------------------
-       4. Scroll Reveal Animations (IntersectionObserver)
+       4. AOS Initialization & Skill Bar Animation
        -------------------------------------------------------------------------- */
-    const revealElements = document.querySelectorAll('.reveal');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const revealObserver = new IntersectionObserver((entries) => {
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 80,
+            delay: 0,
+            disable: prefersReducedMotion
+        });
+    }
+
+    // Animate skill bars on scroll
+    const skillColumns = document.querySelectorAll('.skills-column');
+    const skillObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                
-                // Animate skill bars if inside skill section
-                if (entry.target.classList.contains('skills-column')) {
-                    const bars = entry.target.querySelectorAll('.bar-fill');
-                    bars.forEach(bar => {
-                        const targetWidth = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.width = targetWidth;
-                        }, 200);
-                    });
-                }
+                const bars = entry.target.querySelectorAll('.bar-fill');
+                bars.forEach(bar => {
+                    const targetWidth = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = targetWidth;
+                    }, 200);
+                });
+                skillObserver.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    }, { threshold: 0.15 });
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    skillColumns.forEach(el => skillObserver.observe(el));
 
     /* --------------------------------------------------------------------------
        5. Contact Form — Secure Delivery via FormSubmit (No-CORS method)
        --------------------------------------------------------------------------
        Uses standard form submission targeted at a hidden iframe to bypass any
        local file:// protocol CORS issues. No API keys or passwords required.
-       Note: On the VERY FIRST submission, you will receive an activation email
-       at harshveersingh.tech@gmail.com.
        -------------------------------------------------------------------------- */
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
@@ -179,8 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show loading state
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<span>Sending...</span> <i class="fas fa-spinner fa-spin"></i>`;
-            
-            // The form will now natively submit to the hidden iframe
         });
     }
 
@@ -190,13 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursorDot  = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
 
-
-    if (cursorDot && cursorRing) {
+    if (cursorDot && cursorRing && !prefersReducedMotion) {
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
         let ringX  = mouseX;
         let ringY  = mouseY;
-        let rafId  = null;
 
         // Snap dot; lag ring via lerp
         function animateCursor() {
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cursorRing.style.left = ringX  + 'px';
             cursorRing.style.top  = ringY  + 'px';
 
-            rafId = requestAnimationFrame(animateCursor);
+            requestAnimationFrame(animateCursor);
         }
 
         // Show immediately by default
@@ -307,7 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     animateCount(document.getElementById('totalVisits'),  totalVisits,  1500);
                     animateCount(document.getElementById('todayVisits'),  todayVisits,  1200);
                     animateCount(document.getElementById('uniqueVisits'), uniqueVisits, 1400);
-                    // "Online Now" stays at 1 (you) or mock random 1-3
                     const liveCount = Math.floor(Math.random() * 2) + 1;
                     animateCount(document.getElementById('onlineNow'), liveCount, 800);
 

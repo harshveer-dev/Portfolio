@@ -9,8 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Font Awesome 6.5.1 CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Custom Stylesheet -->
@@ -18,6 +20,14 @@
 </head>
 
 <body>
+
+    <!-- Subtle Ambient Animated Background Elements -->
+    <div class="bg-decorations" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
 
     <!-- Cursor Trail -->
     <div class="cursor-dot" id="cursorDot"></div>
@@ -40,7 +50,7 @@
 
         <div class="header-btns">
             <a href="#contact" class="btn btn-sm">Let's Talk</a>
-            <div class="menu-btn" id="menu-btn">
+            <div class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
@@ -48,18 +58,18 @@
 
     <!-- Hero Section -->
     <section class="home" id="home">
-        <div class="home-content reveal">
-            <div class="greeting-badge">
+        <div class="home-content">
+            <div class="greeting-badge" data-aos="fade-down" data-aos-duration="700">
                 <i class="fas fa-circle-dot"></i> Available for New Projects
             </div>
-            <h1>Hi, It's <span>Harshveer</span></h1>
-            <h3 class="role-heading">I'm a <span class="typing-text"></span><span class="typing-cursor">|</span></h3>
-            <p class="description">
+            <h1 data-aos="fade-up" data-aos-duration="900" data-aos-delay="100">Hi, It's <span>Harshveer</span></h1>
+            <h3 class="role-heading" data-aos="fade-up" data-aos-duration="900" data-aos-delay="200">I'm a <span class="typing-text"></span><span class="typing-cursor">|</span></h3>
+            <p class="description" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
                 Passionate Python Developer & Backend Specialist dedicated to building high-performance web
                 applications, scalable APIs, and automated solutions with sleek design aesthetics.
             </p>
 
-            <div class="social-icons">
+            <div class="social-icons" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="400">
                 <a href="https://github.com/harshveer-dev" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fab fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/harsh-veer-73a053422/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
@@ -67,7 +77,7 @@
                 <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
 
-            <div class="cta-group">
+            <div class="cta-group" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
                 <a href="#contact" class="btn btn-primary">
                     <span>Hire Me</span>
                     <i class="fas fa-arrow-right"></i>
@@ -78,20 +88,18 @@
                 </a>
             </div>
         </div>
-
-
     </section>
 
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">WHAT I OFFER</span>
             <h2>My Special <span>Services</span></h2>
             <div class="title-underline"></div>
         </div>
 
         <div class="services-container">
-            <div class="service-card reveal">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon-box">
                     <i class="fab fa-python"></i>
                 </div>
@@ -100,7 +108,7 @@
                 <a href="#contact" class="card-link">Learn More <i class="fas fa-chevron-right"></i></a>
             </div>
 
-            <div class="service-card reveal">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon-box">
                     <i class="fas fa-desktop"></i>
                 </div>
@@ -109,7 +117,7 @@
                 <a href="#contact" class="card-link">Learn More <i class="fas fa-chevron-right"></i></a>
             </div>
 
-            <div class="service-card reveal">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box">
                     <i class="fas fa-database"></i>
                 </div>
@@ -118,7 +126,7 @@
                 <a href="#contact" class="card-link">Learn More <i class="fas fa-chevron-right"></i></a>
             </div>
 
-            <div class="service-card reveal">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-box">
                     <i class="fas fa-code"></i>
                 </div>
@@ -131,14 +139,14 @@
 
     <!-- Skills Section -->
     <section class="skills" id="skills">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">MY EXPERTISE</span>
             <h2>Technical <span>Skills</span></h2>
             <div class="title-underline"></div>
         </div>
 
         <div class="skills-wrapper">
-            <div class="skills-column reveal">
+            <div class="skills-column" data-aos="fade-right" data-aos-delay="100">
                 <h3>Programming & Core Concepts</h3>
 
                 <div class="skill-box">
@@ -182,7 +190,7 @@
                 </div>
             </div>
 
-            <div class="skills-column reveal">
+            <div class="skills-column" data-aos="fade-left" data-aos-delay="200">
                 <h3>Web Development & Databases</h3>
 
                 <div class="skill-box">
@@ -217,7 +225,7 @@
             </div>
         </div>
 
-        <div class="tech-pills reveal">
+        <div class="tech-pills" data-aos="zoom-in" data-aos-delay="300">
             <span class="pill"><i class="fab fa-python"></i> Python</span>
             <span class="pill"><i class="fas fa-cubes"></i> OOPs</span>
             <span class="pill"><i class="fas fa-bug"></i> Exception Handling</span>
@@ -235,14 +243,14 @@
 
     <!-- Projects Section -->
     <section class="projects" id="projects">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">MY CREATIONS</span>
             <h2>Featured <span>Projects</span></h2>
             <div class="title-underline"></div>
         </div>
 
         <div class="projects-container">
-            <div class="project-card reveal">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="project-icon">
                     <i class="fas fa-user-graduate"></i>
                 </div>
@@ -260,7 +268,7 @@
                 </div>
             </div>
 
-            <div class="project-card reveal">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="project-icon">
                     <i class="fas fa-user-shield"></i>
                 </div>
@@ -278,7 +286,7 @@
                 </div>
             </div>
 
-            <div class="project-card reveal">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="project-icon">
                     <i class="fas fa-file-lines"></i>
                 </div>
@@ -295,7 +303,7 @@
                 </div>
             </div>
 
-            <div class="project-card reveal">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="project-icon">
                     <i class="fas fa-calculator"></i>
                 </div>
@@ -312,7 +320,7 @@
                 </div>
             </div>
 
-            <div class="project-card reveal">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="500">
                 <div class="project-icon">
                     <i class="fas fa-gamepad"></i>
                 </div>
@@ -329,7 +337,7 @@
                 </div>
             </div>
 
-            <div class="project-card reveal">
+            <div class="project-card" data-aos="fade-up" data-aos-delay="600">
                 <div class="project-icon">
                     <i class="fas fa-database"></i>
                 </div>
@@ -350,14 +358,14 @@
 
     <!-- Education Section -->
     <section class="education" id="education">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">MY ACADEMICS</span>
             <h2>Education <span>Journey</span></h2>
             <div class="title-underline"></div>
         </div>
 
         <div class="timeline">
-            <div class="timeline-item reveal">
+            <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
                 <div class="timeline-dot"><i class="fas fa-graduation-cap"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2026 – Present</span>
@@ -368,7 +376,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item reveal">
+            <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
                 <div class="timeline-dot"><i class="fas fa-school"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2024</span>
@@ -383,7 +391,7 @@
 
     <!-- Experience Section -->
     <section class="experience" id="experience">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">CAREER PATH</span>
             <h2>Work <span>Experience</span></h2>
             <div class="title-underline"></div>
@@ -392,7 +400,7 @@
         <div class="timeline">
 
             <!-- Python & Tkinter -->
-            <div class="timeline-item reveal">
+            <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
                 <div class="timeline-dot"><i class="fas fa-desktop"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2025 – 2026</span>
@@ -409,7 +417,7 @@
             </div>
 
             <!-- Web Development -->
-            <div class="timeline-item reveal">
+            <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
                 <div class="timeline-dot"><i class="fas fa-globe"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2026 – Present</span>
@@ -425,7 +433,7 @@
             </div>
 
             <!-- Database & SQL -->
-            <div class="timeline-item reveal">
+            <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
                 <div class="timeline-dot"><i class="fas fa-database"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2025 – 2026</span>
@@ -442,7 +450,7 @@
             </div>
 
             <!-- Current Status -->
-            <div class="timeline-item reveal">
+            <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
                 <div class="timeline-dot"><i class="fas fa-rocket"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-date"><i class="far fa-calendar-alt"></i> 2026 – Present</span>
@@ -457,7 +465,7 @@
 
     <!-- Visitors Section -->
     <section class="visitors" id="visitors">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">PORTFOLIO STATS</span>
             <h2>Site <span>Visitors</span></h2>
             <div class="title-underline"></div>
@@ -465,7 +473,7 @@
 
         <div class="visitors-grid">
             <!-- Total Visits -->
-            <div class="visitor-card reveal">
+            <div class="visitor-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="visitor-card-glow"></div>
                 <div class="visitor-icon-box">
                     <i class="fas fa-users"></i>
@@ -476,41 +484,41 @@
             </div>
 
             <!-- Today's Visits -->
-            <div class="visitor-card reveal" style="animation-delay: 0.15s;">
-                <div class="visitor-card-glow" style="background: rgba(99,102,241,0.25);"></div>
-                <div class="visitor-icon-box" style="background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.3); color: #818cf8;">
+            <div class="visitor-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="visitor-card-glow" style="background: rgba(99,102,241,0.15);"></div>
+                <div class="visitor-icon-box" style="background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.2); color: #6366f1;">
                     <i class="fas fa-calendar-day"></i>
                 </div>
-                <div class="visitor-count" id="todayVisits" style="background: linear-gradient(135deg,#818cf8,#c7d2fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0</div>
+                <div class="visitor-count" id="todayVisits" style="background: linear-gradient(135deg,#6366f1,#8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0</div>
                 <div class="visitor-label">Today's Visits</div>
                 <div class="visitor-sub">Visitors since midnight</div>
             </div>
 
             <!-- Unique Visitors -->
-            <div class="visitor-card reveal" style="animation-delay: 0.3s;">
-                <div class="visitor-card-glow" style="background: rgba(16,185,129,0.25);"></div>
-                <div class="visitor-icon-box" style="background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: #10b981;">
+            <div class="visitor-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="visitor-card-glow" style="background: rgba(59,130,246,0.15);"></div>
+                <div class="visitor-icon-box" style="background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.2); color: #3b82f6;">
                     <i class="fas fa-fingerprint"></i>
                 </div>
-                <div class="visitor-count" id="uniqueVisits" style="background: linear-gradient(135deg,#10b981,#34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0</div>
+                <div class="visitor-count" id="uniqueVisits" style="background: linear-gradient(135deg,#3b82f6,#60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">0</div>
                 <div class="visitor-label">Unique Visitors</div>
                 <div class="visitor-sub">Distinct browsing sessions</div>
             </div>
 
             <!-- Live Online Status -->
-            <div class="visitor-card reveal" style="animation-delay: 0.45s;">
-                <div class="visitor-card-glow" style="background: rgba(245,158,11,0.25);"></div>
-                <div class="visitor-icon-box" style="background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); color: #f59e0b;">
+            <div class="visitor-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="visitor-card-glow" style="background: rgba(16,185,129,0.15);"></div>
+                <div class="visitor-icon-box" style="background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.2); color: #10b981;">
                     <i class="fas fa-circle-dot"></i>
                 </div>
-                <div class="visitor-count" id="onlineNow" style="background: linear-gradient(135deg,#f59e0b,#fcd34d); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1</div>
+                <div class="visitor-count" id="onlineNow" style="background: linear-gradient(135deg,#10b981,#34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">1</div>
                 <div class="visitor-label">Online Now</div>
                 <div class="visitor-sub">Currently browsing</div>
             </div>
         </div>
 
         <!-- Progress Bar Strip -->
-        <div class="visitor-progress-section reveal">
+        <div class="visitor-progress-section" data-aos="fade-up" data-aos-delay="200">
             <h3 class="visitor-progress-title">Visitor Growth Milestones</h3>
             <div class="visitor-milestones">
                 <div class="milestone-item">
@@ -525,14 +533,14 @@
                         <span class="milestone-label"><i class="fas fa-star"></i> First 500 Visitors</span>
                         <span class="milestone-pct" id="m2Pct">0%</span>
                     </div>
-                    <div class="milestone-bar"><div class="milestone-fill" id="m2Fill" style="background: linear-gradient(135deg,#818cf8,#c7d2fe);"></div></div>
+                    <div class="milestone-bar"><div class="milestone-fill" id="m2Fill" style="background: linear-gradient(135deg,#6366f1,#a78bfa);"></div></div>
                 </div>
                 <div class="milestone-item">
                     <div class="milestone-header">
                         <span class="milestone-label"><i class="fas fa-trophy"></i> First 1000 Visitors</span>
                         <span class="milestone-pct" id="m3Pct">0%</span>
                     </div>
-                    <div class="milestone-bar"><div class="milestone-fill" id="m3Fill" style="background: linear-gradient(135deg,#10b981,#34d399);"></div></div>
+                    <div class="milestone-bar"><div class="milestone-fill" id="m3Fill" style="background: linear-gradient(135deg,#3b82f6,#60a5fa);"></div></div>
                 </div>
             </div>
         </div>
@@ -540,14 +548,14 @@
 
     <!-- Contact Section -->
     <section class="contact" id="contact">
-        <div class="section-header reveal">
+        <div class="section-header" data-aos="fade-up">
             <span class="sub-title">GET IN TOUCH</span>
             <h2>Contact <span>Me</span></h2>
             <div class="title-underline"></div>
         </div>
 
         <div class="contact-wrapper">
-            <div class="contact-info reveal">
+            <div class="contact-info" data-aos="fade-right" data-aos-delay="100">
                 <h3>Let's talk about your next project!</h3>
                 <p>I'm always open to discussing new software development opportunities, freelance work, or technical
                     collaborations.</p>
@@ -586,7 +594,7 @@
             </div>
 
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-            <form action="https://formsubmit.co/harshveersingh.tech@gmail.com" method="POST" target="hidden_iframe" class="contact-form reveal" id="contactForm">
+            <form action="https://formsubmit.co/harshveersingh.tech@gmail.com" method="POST" target="hidden_iframe" class="contact-form" data-aos="fade-left" data-aos-delay="200" id="contactForm">
                 <!-- Disable Captcha to prevent redirecting inside the iframe -->
                 <input type="hidden" name="_captcha" value="false">
                 
@@ -625,6 +633,8 @@
         </div>
     </footer>
 
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Custom Script -->
     <script src="script.js"></script>
 </body>
