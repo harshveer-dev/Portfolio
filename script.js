@@ -323,4 +323,66 @@ document.addEventListener('DOMContentLoaded', () => {
         visitorObserver.observe(visitorSection);
     })();
 
+    /* --------------------------------------------------------------------------
+       8. Click-to-Choose Card Glow & Shadow Effect (Important Sections)
+       -------------------------------------------------------------------------- */
+    const choosableCards = document.querySelectorAll(
+        '.service-card, .project-card, .glass-project-card'
+    );
+
+    if (choosableCards.length > 0) {
+        choosableCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation(); // prevent document click from firing
+                const isAlreadyChosen = card.classList.contains('chosen');
+
+                // Remove chosen from all cards in the same section
+                const parentSection = card.closest('section') || document;
+                parentSection.querySelectorAll('.service-card, .project-card, .glass-project-card').forEach(c => {
+                    c.classList.remove('chosen');
+                });
+
+                // Toggle on current card
+                if (!isAlreadyChosen) {
+                    card.classList.add('chosen');
+                }
+            });
+        });
+
+        // Click outside any card to deselect all
+        document.addEventListener('click', () => {
+            choosableCards.forEach(c => c.classList.remove('chosen'));
+        });
+    }
+
+    /* --------------------------------------------------------------------------
+       9. Smooth Scrolling for Internal Navigation Anchors
+       -------------------------------------------------------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || targetId === '') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                const headerHeight = header ? header.offsetHeight : 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - (headerHeight - 5);
+
+                if (prefersReducedMotion) {
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'auto'
+                    });
+                } else {
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
 });

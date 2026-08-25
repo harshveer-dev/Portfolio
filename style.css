@@ -570,6 +570,84 @@ section {
 }
 
 /* --------------------------------------------------------------------------
+   6.5 Universal Glassmorphism System & Cursor Specular Reflection
+   -------------------------------------------------------------------------- */
+.service-card,
+.skills-column,
+.project-card,
+.glass-project-card,
+.timeline-content,
+.visitor-card,
+.visitor-progress-section,
+.info-card,
+.contact-form {
+    position: relative;
+    background: rgba(255, 255, 255, 0.78) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(139, 92, 246, 0.16) !important;
+    box-shadow: 0 10px 30px rgba(71, 85, 105, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                background 0.4s ease;
+}
+
+
+.service-card > *,
+.skills-column > *,
+.project-card > *,
+.glass-project-card > *,
+.timeline-content > *,
+.visitor-card > *,
+.visitor-progress-section > *,
+.info-card > *,
+.contact-form > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Timeline, visitor, contact sections subtle hover lift */
+.timeline-content:hover,
+.visitor-card:hover,
+.visitor-progress-section:hover,
+.info-card:hover,
+.contact-form:hover {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: rgba(139, 92, 246, 0.38) !important;
+    box-shadow: 0 20px 45px rgba(99, 102, 241, 0.16),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-4px);
+}
+
+/* Chosen Card Selection State with Glowing and Shadow Effects */
+.service-card,
+.project-card,
+.glass-project-card {
+    cursor: pointer;
+}
+
+.service-card.chosen,
+.project-card.chosen,
+.glass-project-card.chosen {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-color: rgba(99, 102, 241, 0.6) !important;
+    transform: translateY(-10px) scale(1.025) !important;
+    box-shadow: 0 25px 60px rgba(99, 102, 241, 0.28),
+                0 0 35px rgba(139, 92, 246, 0.22),
+                inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    outline: none;
+}
+
+.service-card.chosen::before,
+.project-card.chosen::before,
+.glass-project-card.chosen::before {
+    opacity: 1 !important;
+}
+
+/* --------------------------------------------------------------------------
    7. Services Section
    -------------------------------------------------------------------------- */
 .services-container {
@@ -579,15 +657,8 @@ section {
 }
 
 .service-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
     padding: 3.5rem 3rem;
     border-radius: var(--radius-lg);
-    transition: var(--transition-smooth);
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
-    backdrop-filter: blur(10px);
 }
 
 .service-card::before {
@@ -600,14 +671,9 @@ section {
     background: var(--accent-gradient);
     opacity: 0;
     transition: var(--transition-fast);
+    z-index: 3;
 }
 
-.service-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-accent);
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-card-hover);
-}
 
 .service-card:hover::before {
     opacity: 1;
@@ -846,6 +912,141 @@ section {
 }
 
 /* --------------------------------------------------------------------------
+   9.1 Future Projects Section (Glassmorphism Effect)
+   -------------------------------------------------------------------------- */
+.future-projects {
+    position: relative;
+}
+
+.future-projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 3.5rem;
+}
+
+.glass-project-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    border-radius: var(--radius-lg);
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                background 0.4s ease;
+    box-shadow: 0 10px 30px rgba(71, 85, 105, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Dynamic Cursor Specular Reflection */
+.glass-glow-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: var(--radius-lg);
+    background: radial-gradient(
+        320px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+        rgba(139, 92, 246, 0.18),
+        rgba(59, 130, 246, 0.08) 40%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+}
+
+.glass-project-card.active-glow .glass-glow-overlay,
+.service-card.active-glow .glass-glow-overlay,
+.project-card.active-glow .glass-glow-overlay {
+    opacity: 1;
+}
+
+.glass-project-card:hover .glass-glow-overlay,
+.service-card:hover .glass-glow-overlay,
+.project-card:hover .glass-glow-overlay {
+    opacity: 1;
+}
+
+.service-card:hover,
+.project-card:hover,
+.glass-project-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    background: rgba(255, 255, 255, 0.88) !important;
+    border-color: rgba(139, 92, 246, 0.38) !important;
+    box-shadow: 0 22px 48px rgba(99, 102, 241, 0.18),
+                0 0 25px rgba(139, 92, 246, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+.future-badge {
+    align-self: flex-start;
+    padding: 0.5rem 1.4rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.12));
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: var(--radius-full);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-deep);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+    z-index: 2;
+}
+
+.future-badge i {
+    color: var(--accent-purple);
+    font-size: 1.1rem;
+}
+
+.glass-project-card .project-icon {
+    z-index: 2;
+}
+
+.glass-project-card h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 1.5rem;
+    z-index: 2;
+}
+
+.glass-project-card p {
+    font-size: 1.5rem;
+    color: var(--text-body);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+    flex-grow: 1;
+    z-index: 2;
+}
+
+.glass-project-card .project-tags {
+    z-index: 2;
+}
+
+.glass-project-card .project-links {
+    z-index: 2;
+}
+
+.glass-link {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--accent-indigo);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.4rem;
+    background: rgba(99, 102, 241, 0.06);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: var(--radius-full);
+}
+
+/* --------------------------------------------------------------------------
    10. Education & Experience Timeline
    -------------------------------------------------------------------------- */
 .timeline {
@@ -861,7 +1062,7 @@ section {
     left: 20px;
     height: 100%;
     width: 2px;
-    background: linear-gradient(180deg, rgba(139, 92, 246, 0.25), rgba(96, 165, 250, 0.1));
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.35), rgba(96, 165, 250, 0.2) 80%, transparent 100%);
 }
 
 .timeline-item {
@@ -890,6 +1091,125 @@ section {
     font-size: 1.6rem;
     box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
     z-index: 2;
+}
+
+/* Education Timeline Node (Minimal & Clean) */
+.education-timeline .timeline-dot {
+    width: 26px;
+    height: 26px;
+    left: 8px;
+    top: 12px;
+    background: var(--bg-white);
+    border: 3px solid var(--accent-purple);
+    box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.14), 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.education-timeline .timeline-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+}
+
+/* Timeline Ending Tag / Marker */
+.timeline-end-marker {
+    position: relative;
+    padding-left: 65px;
+    margin-top: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.timeline-end-node {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 0 20px var(--accent-glow);
+    z-index: 2;
+}
+
+.timeline-end-pulse {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-purple);
+    opacity: 0.8;
+    animation: timelinePulse 2.2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+    pointer-events: none;
+}
+
+@keyframes timelinePulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.4);
+        opacity: 0.25;
+    }
+    100% {
+        transform: scale(1.85);
+        opacity: 0;
+    }
+}
+
+.timeline-end-pill {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 1.2rem 2.6rem;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1.5px solid rgba(139, 92, 246, 0.35);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    animation: timelineFloat 4s ease-in-out infinite;
+    transition: var(--transition-smooth);
+}
+
+.timeline-end-pill:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(99, 102, 241, 0.2);
+    background: #FFFFFF;
+}
+
+@keyframes timelineFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.timeline-end-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.timeline-end-sub {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: var(--accent-gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .timeline-content {
@@ -1414,9 +1734,11 @@ body:has(button:hover) .cursor-ring,
 body:has(.btn:hover) .cursor-ring,
 body:has(.service-card:hover) .cursor-ring,
 body:has(.project-card:hover) .cursor-ring,
+body:has(.glass-project-card:hover) .cursor-ring,
 body:has(.pill:hover) .cursor-ring,
 body:has(.visitor-card:hover) .cursor-ring,
-body:has(.timeline-content:hover) .cursor-ring {
+body:has(.timeline-content:hover) .cursor-ring,
+body:has(.timeline-end-pill:hover) .cursor-ring {
     width: 56px;
     height: 56px;
     border-color: rgba(139, 92, 246, 0.8);
@@ -1451,6 +1773,15 @@ body:has(.timeline-content:hover) .cursor-ring {
 
     .blob {
         animation: none !important;
+    }
+
+    .timeline-end-pulse,
+    .timeline-end-pill {
+        animation: none !important;
+    }
+
+    .glass-project-card {
+        transform: none !important;
     }
 }
 
@@ -1554,6 +1885,10 @@ body:has(.timeline-content:hover) .cursor-ring {
         grid-template-columns: 1fr;
     }
 
+    .future-projects-container {
+        grid-template-columns: 1fr;
+    }
+
     .visitors-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1581,6 +1916,26 @@ body:has(.timeline-content:hover) .cursor-ring {
         width: 100%;
         max-width: 280px;
         justify-content: center;
+    }
+
+    .timeline-item {
+        padding-left: 50px;
+    }
+
+    .timeline-end-marker {
+        padding-left: 50px;
+    }
+
+    .timeline-end-pill {
+        padding: 1rem 1.8rem;
+    }
+
+    .timeline-end-title {
+        font-size: 1.4rem;
+    }
+
+    .timeline-end-sub {
+        font-size: 1.1rem;
     }
 
     section {
